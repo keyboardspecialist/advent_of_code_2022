@@ -7,9 +7,12 @@ LET start() = VALOF
 	{	writef("Bad file*n")
 		RESULTIS 1
 	}
-
+	start_timer()
 	count.cals()
+	stop_timer()
 	cls_infile()
+
+	writef("Execution Time: %d ms *n", get_time_taken_ms())
 	RESULTIS 0
 }
 
