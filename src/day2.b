@@ -1,0 +1,21 @@
+SECTION "ROCKPAPERSCISSORS"
+
+GET "u/utils.b" //Try to figure out proper inclusion utils.h should inject this into global manifest
+
+LET start() = VALOF
+{	IF NOT set_infile("data/dayN.data") DO
+	{	writef("Bad file*n")
+		RESULTIS 1
+	}
+
+	start_timer()
+	rps.score()
+	stop_timer()
+
+	writef("Execution Time: %d ms *n", get_time_taken_ms())
+	RESULTIS 0
+}
+AND rps.score() BE
+{
+
+}
