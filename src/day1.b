@@ -35,6 +35,7 @@ AND count.cals() BE
 		}
 		IF NOT string_to_number(ln) LOOP
 		acc := acc + result2
+		freevec(ln)
 	}	REPEATUNTIL eof = TRUE
 
 	total := big!0 + big!1 + big!2

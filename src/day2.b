@@ -85,6 +85,7 @@ AND rps.score() BE
 
 		score := score + (@s.score.table!v2)%v1 + (v2+1)
 		score2 := score2 + (@s.score.table2!v2)%v1 + 1 + (v2 * 3)
+		freevec(ln)
 	} REPEATUNTIL eof = TRUE
 
 	writef("Total Score -> %d *n", score)
