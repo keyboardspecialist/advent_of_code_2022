@@ -45,8 +45,6 @@ AND fread_line()   = VALOF
 	result2 := FALSE
 	IF g.cis = input() RESULTIS 0   //we don't want this stream
 	buf := getvec(64) //255 chars
-
-	
 	
 	{	ch := rdch()
 		IF ch = endstreamch DO
