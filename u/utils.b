@@ -38,6 +38,8 @@ AND cls_outfile()   BE
 		selectoutput(g.cos)
 		g.hoFile := 0
 	}
+
+AND reset_infile() BE rewindstream(g.hFile)
 	
 AND fread_line()   = VALOF
 {   LET ch = ?
