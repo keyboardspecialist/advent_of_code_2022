@@ -31,7 +31,7 @@ LET start() = VALOF
 	rps.score()
 	free.tables()
 	stop_timer()
-
+	cls_infile()
 	writef("Execution Time: %d ms *n", get_time_taken_ms())
 	RESULTIS 0
 }
