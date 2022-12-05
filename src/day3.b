@@ -28,13 +28,13 @@ AND total.misplaced() BE
 
 		IF ln = 0 BREAK
 		FOR i = 0 TO 13 DO { first!i := 0; second!i := 0 }
-
+		
 		FOR i = 1 TO ln%0/2 DO
 		{	LET c = ln%i
 			AND priority = 0
 			LET bitset = c&#X20
 			priority := (c&#X1F) + (bitset~=0 -> 0, 26) - 1
-			first%priority := 1 
+			first%priority := TRUE
 		}
 
 		FOR i = ln%0/2+1 TO ln%0 DO
@@ -42,11 +42,11 @@ AND total.misplaced() BE
 			AND priority = 0
 			LET bitset = c&#X20
 			priority := (c&#X1F) + (bitset~=0 -> 0, 26) - 1
-			second%priority := 1 
+			second%priority := TRUE 
 		}
 
 		FOR i = 0 TO 52
-		IF first%i = 1 & second%i = 1 DO
+		IF first%i = TRUE%0 & second%i = TRUE%0 DO //TRUE is a manifest constant, we have to access it as a byte to prevent bit extension on the equivalency test
 		{	total := total + i + 1
 		}  
 		freevec(ln)
@@ -73,7 +73,7 @@ AND stinkin.badges() BE
 		get_priorities(ln2, badges2)
 		get_priorities(ln3, badges3)
 
-		FOR i = 0 TO 51 IF badges1%i = 1 & badges2%i = 1 & badges3%i = 1 DO
+		FOR i = 0 TO 51 IF badges1%i = TRUE%0 & badges2%i = TRUE%0 & badges3%i = TRUE%0 DO
 		{	total := total + i + 1
 		}
 
@@ -94,5 +94,5 @@ FOR i = 1 TO str%0 DO
 {	LET c, priority = str%i, 0
 	LET bitset = c&#X20
 	priority := (c&#X1F) + (bitset~=0 -> 0, 26) - 1
-	out%priority := 1 
+	out%priority := TRUE
 }
