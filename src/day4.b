@@ -17,7 +17,7 @@ LET start() = VALOF
 }
 
 AND camp.cleanup() BE
-{	LET total, eof = 0, FALSE
+{	LET total, total2, eof = 0, 0, FALSE
 	{	LET ln = fread_line()
 		LET rvals = VEC 4
 		LET ns = VEC 4
@@ -42,8 +42,16 @@ AND camp.cleanup() BE
 		DO 
 		total +:= 1
 
+		IF rvals!0 <= rvals!3 & rvals!0 >= rvals!2 |
+		rvals!1 >= rvals!2 & rvals!1 <= rvals!3 |
+		rvals!0 >= rvals!2 & rvals!1 <= rvals!3 | 
+		rvals!2 >= rvals!0 & rvals!3 <= rvals!1
+		DO 
+		total2 +:= 1 // <> writef("any overlap str:: %s *n", ln)
+
 		freevec(ln)
 	}	REPEATUNTIL eof = TRUE
 
-	writef("Total overlaps %d *n", total)
+	writef("Total complete overlaps %d *n", total)
+	writef("Total any overlap %d *n", total2)
 }
