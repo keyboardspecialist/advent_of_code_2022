@@ -7,7 +7,7 @@ GET "utils.h"
 //Swap existing stream with a new one
 // 
 LET set_infile(filename) = VALOF 
-{   g.hFile := findinput(filename)
+{	g.hFile := findinput(filename)
 	IF g.hFile DO
 	{	g.cis := input()
 		selectinput(g.hFile)
@@ -24,7 +24,7 @@ AND cls_infile()    BE
 	}
 
 AND set_outfile(filename) = VALOF
-{   g.hoFile := findoutput(filename)
+{	g.hoFile := findoutput(filename)
 	IF g.hoFile DO
 	{	g.cos := output()
 		selectoutput(g.hoFile)
@@ -42,7 +42,7 @@ AND cls_outfile()   BE
 AND reset_infile() BE rewindstream(g.hFile)
 	
 AND fread_line()   = VALOF
-{   LET ch = ?
+{	LET ch = ?
 	LET buf, out, nr = 0, 0, 0
 	result2 := FALSE
 	IF g.cis = input() RESULTIS 0   //we don't want this stream
