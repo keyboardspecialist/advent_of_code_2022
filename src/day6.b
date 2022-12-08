@@ -24,13 +24,14 @@ AND packet.sniffer() BE
 	m%1 := rdch()
 	m%2 := rdch()
 	m%3 := rdch()
-	{	LET c = rdch()
-		i +:= 1
-		IF c = endstreamch BREAK
-		m!0 >>:= 8; m%3 := c 
+	{	LET c = 0
 		IF m%0 ~= m%1 & m%0 ~= m%2 & m%0 ~= m%3 &
 		m%1 ~= m%2 & m%1 ~= m%3 &
 		m%2 ~= m%3 BREAK
+		c := rdch()
+		i +:= 1
+		IF c = endstreamch BREAK
+		m!0 >>:= 8; m%3 := c 
 	}	REPEAT
 	writef("CODE [%c %c %c %c] POSITION %d *n", m%0, m%1, m%2, m%3, i)
 }
