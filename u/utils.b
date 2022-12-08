@@ -65,8 +65,35 @@ AND fread_line()   = VALOF
 			i := i + 1
 		}	REPEATWHILE i <= nr
 	}
-	writef("fread_line alloc %d *n", out)
 	RESULTIS out
+}
+
+AND fget_line(out, n) = VALOF
+{	LET ch = ?
+	LET nr = 0
+	LET buf = VEC 64
+	LET eof = FALSE
+	IF g.cis = input() RESULTIS TRUE   //we don't want this stream
+
+	out%0 := 0
+	
+	{	ch := rdch()
+		IF ch = endstreamch DO
+		{	eof := TRUE
+			BREAK
+		}
+		IF ch = '*n' BREAK
+		buf%nr := ch; nr := nr + 1
+	}	REPEATWHILE nr < n
+	
+	IF nr > 0 DO
+	{	LET i = 1
+		out%0 := nr
+		{	out%i := buf%(i-1)
+			i := i + 1
+		}	REPEATWHILE i <= nr
+	}
+	RESULTIS eof
 }
 
 //should refactor to use readn()
