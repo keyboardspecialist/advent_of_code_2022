@@ -43,10 +43,10 @@ AND reset_infile() BE rewindstream(g.hFile)
 	
 AND fread_line()   = VALOF
 {	LET ch = ?
-	LET buf, out, nr = 0, 0, 0
+	LET out, nr = 0, 0
+	LET buf = VEC 64
 	result2 := FALSE
 	IF g.cis = input() RESULTIS 0   //we don't want this stream
-	buf := getvec(64) //255 chars
 	
 	{	ch := rdch()
 		IF ch = endstreamch DO
@@ -65,8 +65,7 @@ AND fread_line()   = VALOF
 			i := i + 1
 		}	REPEATWHILE i <= nr
 	}
-
-	freevec(buf)
+	writef("fread_line alloc %d *n", out)
 	RESULTIS out
 }
 
