@@ -33,10 +33,42 @@ AND packet.sniffer() BE
 		IF c = endstreamch BREAK
 		m!0 >>:= 8; m%3 := c 
 	}	REPEAT
-	writef("CODE [%c %c %c %c] POSITION %d *n", m%0, m%1, m%2, m%3, i)
+	writef("CODE [%c %c %c %c] POSITION %i *n", m%0, m%1, m%2, m%3, i)
 }
 
 AND msg.sniffer() BE 
-{	
+{	LET i, j = 0, 13
+	LET strm = slurp()
+	LET len = result2
 
+	{	LET done = TRUE
+		FOR k = 0 TO 13 DO
+		FOR l = 0 TO 13 DO
+		{	IF l = k LOOP
+			IF strm%(i+k) = strm%(i+l) DO { done := FALSE}
+		}
+		IF done = TRUE BREAK
+		i +:= 1
+		j +:= 1
+	} REPEATUNTIL j = len
+	freevec(strm)
+	writef("SOLUTION [")
+	FOR k = 0 TO 13 DO writef("%c ", strm%(i+k))
+	writef("], POSITION %i *n", j+1)
+}
+
+
+AND slurp() = VALOF
+{	LET blob = ?
+	LET sz = 0
+	{	LET c = rdch()
+		IF c = endstreamch BREAK
+		sz +:= 1
+	}	REPEAT
+
+	blob := getvec(sz/bytesperword + 1)
+	reset_infile()
+	FOR i = 0 TO sz-1 DO blob%i := rdch()
+	result2 := sz
+	RESULTIS blob
 }
